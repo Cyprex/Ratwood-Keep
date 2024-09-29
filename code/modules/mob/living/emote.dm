@@ -48,7 +48,7 @@
 	if(!L || !message || !ishuman(L))
 		return FALSE
 	var/mob/living/carbon/human/M = L
-	if(length(message2recognize) > 15)
+	if(length(message) > 15)
 		if(L.mob_timers[MT_PSYPRAY])
 			if(world.time < L.mob_timers[MT_PSYPRAY] + 1 MINUTES)
 				L.mob_timers[MT_PSYPRAY] = world.time
@@ -60,7 +60,7 @@
 		if(!patron_name)
 			CRASH("check_prayer called with null patron")
 		
-		if(!findtext(message2recognize, "[patron_name]"))
+		if(!findtext(message, "[patron_name]"))
 			return FALSE
 		else
 			L.playsound_local(L, 'sound/misc/notice (2).ogg', 100, FALSE)
@@ -90,9 +90,9 @@
 			L.forceMove(pickedturf)
 			return FALSE
 	if(length(message2recognize) > 15)
-		if(findtext(message2recognize, "[M.patron]"))
+		if(findtext(message2recognize, "[M.patron.name]"))
 			L.playsound_local(L, 'sound/misc/notice (2).ogg', 100, FALSE)
-			to_chat(L, "<font color='yellow'>I, [M.patron], have heard your prayer and yet cannot aid you.</font>")
+			to_chat(L, "<font color='yellow'>I, [M.patron.name], have heard your prayer and yet cannot aid you.</font>")
 			/*var/obj/item/underworld/coin/C = new 
 			L.put_in_active_hand(C)*/
 			return TRUE

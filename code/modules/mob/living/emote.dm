@@ -48,10 +48,10 @@
 			for(var/mob/living/LICKMYBALLS in hearers(2,src))
 				LICKMYBALLS.succumb_timer = world.time
 
+//This proc returns something. But that return is never used anywhere. Crapcode galore!
 /mob/living/proc/check_prayer(mob/living/L,message)
-	if(!L || !message)
+	if(!L || !message || !ishuman(L))
 		return FALSE
-	var/message2recognize = sanitize_hear_message(message)
 	var/mob/living/carbon/human/M = L
 	if(length(message2recognize) > 15)
 		if(L.mob_timers[MT_PSYPRAY])
@@ -60,7 +60,12 @@
 				return FALSE
 		else
 			L.mob_timers[MT_PSYPRAY] = world.time
-		if(!findtext(message2recognize, "[M.patron]"))
+		
+		var/patron_name = M?.patron?.name
+		if(!patron_name)
+			CRASH("check_prayer called with null patron")
+		
+		if(!findtext(message2recognize, "[patron_name]"))
 			return FALSE
 		else
 			L.playsound_local(L, 'sound/misc/notice (2).ogg', 100, FALSE)

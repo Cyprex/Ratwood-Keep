@@ -397,7 +397,7 @@
 	is_in_round_player_generated = in_round_player_generated
 	if(is_in_round_player_generated)
 		player_book_text = text
-		INVOKE_ASYNC(TYPE_PROC_REF(/obj/item/book/rogue/playerbook, prompt_for_contents), in_round_player_mob)
+		INVOKE_ASYNC(src, PROC_REF(prompt_for_contents), in_round_player_mob)
 	else
 		pick_random_book()
 
@@ -409,6 +409,7 @@
 		player_book_author = STRIP_HTML_SIMPLE(input(in_round_player_mob, "What do you want the author text to be? (max 42 characters)", "Author", ""), MAX_NAME_LEN)
 		player_book_icon = book_icons[input(in_round_player_mob, "Choose a book style", "Book Style") as anything in book_icons]
 		player_book_author_ckey = in_round_player_mob.ckey
+		//This gives the icon_state name, not the descriptive name, i. e. "book8", instead of "Sickly green with embossed Bronze"
 		if(alert("Confirm?:\nTitle: [player_book_title]\nAuthor: [player_book_author]\nBook Cover: [player_book_icon]", "", "Yes", "No") == "No")
 			player_book_author_ckey = null
 		message_admins("[player_book_author_ckey]([in_round_player_mob.real_name]) has generated the player book: [player_book_title]")

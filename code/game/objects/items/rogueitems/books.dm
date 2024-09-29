@@ -405,8 +405,8 @@
 //This needs to check if an input is valid via reject_bad_text, and if not prompt the user again.
 /obj/item/book/rogue/playerbook/proc/prompt_for_contents(var/mob/living/in_round_player_mob)
 	while(!player_book_author_ckey) // doesn't have to be this, but better than defining a bool.
-		player_book_title = dd_limittext(capitalize(STRIP_HTML_SIMPLE(input(in_round_player_mob, "What title do you want to give the book? (max 42 characters)", "Title", "Unknown"))), MAX_NAME_LEN)
-		player_book_author = "[dd_limittext(STRIP_HTML_SIMPLE(input(in_round_player_mob, "What do you want the author text to be? (max 42 characters)", "Author", "")), MAX_NAME_LEN)]"
+		player_book_title = capitalize(STRIP_HTML_SIMPLE(input(in_round_player_mob, "What title do you want to give the book? (max 42 characters)", "Title", "Unknown"), MAX_NAME_LEN))
+		player_book_author = STRIP_HTML_SIMPLE(input(in_round_player_mob, "What do you want the author text to be? (max 42 characters)", "Author", ""), MAX_NAME_LEN)
 		player_book_icon = book_icons[input(in_round_player_mob, "Choose a book style", "Book Style") as anything in book_icons]
 		player_book_author_ckey = in_round_player_mob.ckey
 		if(alert("Confirm?:\nTitle: [player_book_title]\nAuthor: [player_book_author]\nBook Cover: [player_book_icon]", "", "Yes", "No") == "No")

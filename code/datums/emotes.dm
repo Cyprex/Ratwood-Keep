@@ -40,6 +40,7 @@
 		//strip punctuation
 		var/static/regex/regex = regex(@"[,.!?]", "g")
 		runechat_msg = regex.Replace(message, "")
+		runechat_msg = trim(runechat_msg, MAX_MESSAGE_LEN)
 
 	if (ispath(mob_type_allowed_typecache))
 		switch (mob_type_allowed_typecache)

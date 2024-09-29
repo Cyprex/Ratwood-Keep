@@ -73,11 +73,10 @@
 	if(!L || !message)
 		return FALSE
 	var/list/bannedwords = list("cock","dick","fuck","shit","pussy","ass","cuck","fucker","fucked","cunt","asshole")
-	var/message2recognize = sanitize_hear_message(message)
 	var/mob/living/carbon/spirit/M = L
 	for(var/T in bannedwords)
 		var/list/turfs = list()
-		if(findtext(message2recognize, T))
+		if(findtext(message, T))
 			for(var/turf/U in /area/rogue/underworld)
 				if(U.density)
 					continue
@@ -89,8 +88,8 @@
 			to_chat(L, "<font color='yellow'>INSOLENT WRETCH, YOUR STRUGGLE IS DESERVED.</font>")
 			L.forceMove(pickedturf)
 			return FALSE
-	if(length(message2recognize) > 15)
-		if(findtext(message2recognize, "[M.patron.name]"))
+	if(length(message) > 15)
+		if(findtext(message, "[M.patron.name]"))
 			L.playsound_local(L, 'sound/misc/notice (2).ogg', 100, FALSE)
 			to_chat(L, "<font color='yellow'>I, [M.patron.name], have heard your prayer and yet cannot aid you.</font>")
 			/*var/obj/item/underworld/coin/C = new 
